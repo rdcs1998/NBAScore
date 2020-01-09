@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -42,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             public void onResponse(Call call, Response response)throws IOException{
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     final String myresponse = response.body().string();
+                    String dataString = ParseFunction(myresponse);
+                    //String responseparsed = ParseFunction(myresponse);
 
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
@@ -56,5 +60,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private String ParseFunction(String mResponse) {
+        JSONObject jobject
     }
 }
