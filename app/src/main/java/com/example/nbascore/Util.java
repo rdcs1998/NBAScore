@@ -1,13 +1,12 @@
 package com.example.nbascore;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +14,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import okhttp3.Call;
@@ -24,7 +22,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class Util extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private TextView mTextView;
     @Override
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         final ArrayList<BetItem> items = ParseFunction(myresponse);
                         //String responseparsed = ParseFunction(myresponse);
 
-                        MainActivity.this.runOnUiThread(new Runnable() {
+                        Util.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 String data = "";
@@ -68,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
                                             bi.commenceTime.toString()
                                         );
                                 }
-
-                                //mTextView.setText(data);
+                                mTextView.setText(data);
                             }
                         });
                     } catch(JSONException jsEx) {
