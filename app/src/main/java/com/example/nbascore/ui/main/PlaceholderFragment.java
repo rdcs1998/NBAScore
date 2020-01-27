@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.nbascore.Common;
 import com.example.nbascore.R;
 
 /**
@@ -46,20 +47,14 @@ public class PlaceholderFragment extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View root  =  inflater.inflate(R.layout.fragment_tab, container, false);
-//        System.out.println(pageViewModel.getIndex());
-//        if(pageViewModel.getIndex()==0){
-//            root =  inflater.inflate(R.layout.fragment_tab, container, false);
-//        }else{
-//            root =  inflater.inflate(R.layout.fragment_tab2, container, false);
-//        }
+        View root  =  inflater.inflate(R.layout.fragment_tab2, container, false);
 
         final TextView textView = root.findViewById(R.id.section_label);
         pageViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
-
+                textView.setText(Common.getInstance().getScoreData());
                 System.out.println(pageViewModel.getIndex());
             }
         });

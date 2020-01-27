@@ -4,20 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
-import com.example.nbascore.Common;
 import com.example.nbascore.R;
-
-import org.w3c.dom.Text;
+import com.google.android.material.tabs.TabLayout;
 
 public class TabFragment extends Fragment {
     int position;
-    private TextView textView;
-
+    ViewPager viewPager;
+    ConferenceViewPagerAdapter conferenceViewPagerAdapter;
     public static Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt("pos", position);
@@ -41,12 +41,41 @@ public class TabFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        textView = (TextView) view.findViewById(R.id.section_label);
-        if(position == 0){
-            textView.setText(Common.getInstance().getScoreData());
-        }else{
-            textView.setText("Fragment " + (position + 1));
-        }
-       //this is set text part, I will show text
+        conferenceViewPagerAdapter = new ConferenceViewPagerAdapter(this.getChildFragmentManager());
+        viewPager = view.findViewById(R.id.pager);
+        viewPager.setAdapter(conferenceViewPagerAdapter);
+        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
+
+class ConferenceViewPagerAdapter extends FragmentStatePagerAdapter {
+    public ConferenceViewPagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
+
+    @Override
+    public Fragment getItem(int i) {
+        Fragment fragment = new ConferenceViewFragment();
+        Bundle args = new Bundle();
+        args.putInt(ConferenceViewFragment.ARG_OBJECT, i + 1);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public int getCount() {
+        return 2;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        if(position==0)
+        {
+            return "East";
+        }
+        else
+            return "West";
+    }
+}
+
